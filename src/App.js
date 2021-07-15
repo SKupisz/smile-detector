@@ -1,5 +1,4 @@
 import React, {useState, useRef} from "react";
-import logo from './logo.svg';
 import './App.css';
 
 import * as tf from "@tensorflow/tfjs";
@@ -20,7 +19,7 @@ function App() {
     })
 
     setInterval(() => {
-      detect(net, changeSmileState);
+      if(isSmiled === false) detect(net, changeSmileState);
     }, 100);
   };
 
@@ -40,7 +39,7 @@ function App() {
       //console.log(face);
       
       const ctx = canvasRef.current.getContext("2d");
-      drawMesh(face, ctx, smileFunction);
+      drawMesh(face, ctx, smileFunction, isSmiled);
     }
   };
 
@@ -62,7 +61,7 @@ function App() {
         {isSmiled ? "Smiled" : "Always look on the bright side of life"}
       </header>
       <header className="App-header">
-        <Webcam ref = {webcamRef} style = {{
+        {!isSmiled? <Webcam ref = {webcamRef} style = {{
           position: "absolute",
           marginLeft: "auto",
           marginRight: "auto",
@@ -71,9 +70,10 @@ function App() {
           textAlign: "center",
           zindex: 9,
           width: 640,
-          height: 480
-        }}/>
-        <canvas ref = {canvasRef} style = {{
+          height: 480,
+          display: !isSmiled ? "block" : "none"
+        }}/> : ""}
+        {!isSmiled? <canvas ref = {canvasRef} style = {{
           position: "absolute",
           marginLeft: "auto",
           marginRight: "auto",
@@ -82,8 +82,10 @@ function App() {
           textAlign: "center",
           zindex: 9,
           width: 640,
-          height: 480
-        }}/>
+          height: 480,
+          display: !isSmiled ? "block" : "none"
+        }}/> : ""}
+        {isSmiled ? <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> : ""}
       </header>
     </div>
   );

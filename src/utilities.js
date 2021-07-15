@@ -2656,7 +2656,7 @@ const drawPath = (ctx, points, closePath) =>{
     ctx.stroke(region);
 };
 
-export const drawMesh = (predictions, ctx, smileCallback) => {
+export const drawMesh = (predictions, ctx, smileCallback, currentValue) => {
     if(predictions.length > 0){
         predictions.forEach(prediction => {
             const keypoints = prediction.scaledMesh;
@@ -2693,8 +2693,8 @@ export const drawMesh = (predictions, ctx, smileCallback) => {
 
             const percentage = ((distance/distanceTechnicallyFixed)*100).toFixed(2);
 
-            if(percentage > 150) smileCallback(true);
-            else smileCallback(false);
+            if(percentage > 140 && currentValue !== true ) smileCallback(true);
+            //else smileCallback(false);
 
             //console.log(((distance/distanceTechnicallyFixed)*100).toFixed(2));
         })
