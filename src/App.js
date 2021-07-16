@@ -38,8 +38,10 @@ function App() {
       const face = await net.estimateFaces(video);
       //console.log(face);
       
-      const ctx = canvasRef.current.getContext("2d");
-      drawMesh(face, ctx, smileFunction, isSmiled);
+      if(!isSmiled && canvasRef.current !== null) {
+        const ctx = canvasRef.current.getContext("2d");
+        drawMesh(face, ctx, smileFunction, isSmiled);
+      }
     }
   };
 
@@ -58,7 +60,7 @@ function App() {
         color: "white",
         fontSize: 24
       }}>
-        {isSmiled ? "Smiled" : "Always look on the bright side of life"}
+        {isSmiled ? "Always look on the bright side of life 😉" : "C'mon, don't be so sad 😉"}
       </header>
       <header className="App-header">
         {!isSmiled? <Webcam ref = {webcamRef} style = {{

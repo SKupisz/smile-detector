@@ -2651,7 +2651,7 @@ const drawPath = (ctx, points, closePath) =>{
     if(closePath){
         region.closePath();
     }
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = "red";
     ctx.lineWidth = 1;
     ctx.stroke(region);
 };
@@ -2693,7 +2693,9 @@ export const drawMesh = (predictions, ctx, smileCallback, currentValue) => {
 
             const percentage = ((distance/distanceTechnicallyFixed)*100).toFixed(2);
 
-            if(percentage > 140 && currentValue !== true ) smileCallback(true);
+            //console.log(percentage);
+
+            if(percentage > 130 && currentValue !== true ) setTimeout(() => smileCallback(true),500);
             //else smileCallback(false);
 
             //console.log(((distance/distanceTechnicallyFixed)*100).toFixed(2));
